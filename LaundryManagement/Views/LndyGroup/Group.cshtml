@@ -1,0 +1,83 @@
+﻿@model IEnumerable<LaundryApp.Models.LaundryGroup>
+
+@{
+    ViewBag.Title = "Group";
+}
+
+<h2>Group Master</h2>
+<form action="~/LndyGroup/Group" method="post">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Name</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="GroupName" />
+        </div>
+        <div class="col-md-3">
+            <label>Code</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="Code"/>
+        </div>
+    </div>
+    <div class="row" style="padding-top:20px;">
+        <div class="col-md-3">
+            <label>Status</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text"  class="form-control" name="IsActive"/>
+        </div>
+        <div class="col-md-3">
+            <label>Color Code</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="ColorCode"/>
+        </div>
+    </div>
+    <input type="submit"  class="btn btn-success" value="Add" />
+</form>
+<div style="padding-bottom:20px;">
+
+</div>
+ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ColorCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ColorCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GroupId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GroupId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GroupId })
+        </td>
+    </tr>
+}
+
+</table>

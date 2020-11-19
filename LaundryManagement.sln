@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaundryManagement", "LaundryManagement\LaundryManagement.csproj", "{F10AAB4C-449E-47AD-B818-B85E5C907D2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaundryApp", "LaundryApp\LaundryApp.csproj", "{3154A994-74D2-4483-9328-D0F7C2973BF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{2583CBF4-849D-4BCC-B848-99670493E50C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F10AAB4C-449E-47AD-B818-B85E5C907D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F10AAB4C-449E-47AD-B818-B85E5C907D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F10AAB4C-449E-47AD-B818-B85E5C907D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3154A994-74D2-4483-9328-D0F7C2973BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3154A994-74D2-4483-9328-D0F7C2973BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3154A994-74D2-4483-9328-D0F7C2973BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3154A994-74D2-4483-9328-D0F7C2973BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2583CBF4-849D-4BCC-B848-99670493E50C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2583CBF4-849D-4BCC-B848-99670493E50C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2583CBF4-849D-4BCC-B848-99670493E50C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2583CBF4-849D-4BCC-B848-99670493E50C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
