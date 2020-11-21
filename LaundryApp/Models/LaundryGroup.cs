@@ -19,4 +19,9 @@ namespace LaundryApp.Models
         public int UpdatedBy { get; set; }
 
     }
+    public class GetLaundryGruopModel
+    {
+        public LaundryGroup lgroup { get; set; }
+        public List<LaundryGroup> lgroups { get; set; }
+    }
 }

@@ -13,6 +13,8 @@ namespace LaundryManagement.Controllers
         BLLaundryGroup db = new BLLaundryGroup();
         public ActionResult Group()
         {
+            GetLaundryGruopModel lg = new GetLaundryGruopModel();
+            
             return View(db.GetLaundryGroups());
         }
 
@@ -29,6 +31,12 @@ namespace LaundryManagement.Controllers
                 return View(lgrp);
             }
 
+        }
+       
+        public ActionResult GroupById(int? id)
+        {
+            ViewBag.group = db.getGroupById(id);
+            return View("Group");
         }
     }
 }

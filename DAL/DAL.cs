@@ -13,31 +13,45 @@ namespace DAL
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConStr"].ToString());
         public DataTable GetData(string spName, Dictionary<string, string> dict)
         {
-            SqlCommand cmd = new SqlCommand(spName, con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            foreach (var item in dict)
+            try
             {
-                cmd.Parameters.AddWithValue(item.Key, item.Value);
+                SqlCommand cmd = new SqlCommand(spName, con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                foreach (var item in dict)
+                {
+                    cmd.Parameters.AddWithValue(item.Key, item.Value);
+                }
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
             }
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            return dt;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int SaveData(string spName, Dictionary<string, string> dict)
         {
-            SqlCommand cmd = new SqlCommand(spName, con);
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            con.Open();
-            foreach (var item in dict)
+            try
             {
-                cmd.Parameters.AddWithValue(item.Key, item.Value);
+                SqlCommand cmd = new SqlCommand(spName, con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                foreach (var item in dict)
+                {
+                    cmd.Parameters.AddWithValue(item.Key, item.Value);
+                }
+                int i = cmd.ExecuteNonQuery();
+                con.Close();
+                return i;
             }
-            int i = cmd.ExecuteNonQuery();
-            con.Close();
-            return i;
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

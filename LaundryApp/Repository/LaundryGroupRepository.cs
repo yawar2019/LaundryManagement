@@ -20,6 +20,13 @@ namespace LaundryApp.Repository
             return dt;
         }
 
+        public DataTable GetLaundryGroupDetailById(int? id)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("@GroupId", Convert.ToString(id));
+            DataTable dt = db.GetData("sp_lndryGroupById", dict);
+            return dt;
+        }
         public int SaveGroupDet(LaundryGroup lgrp)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();

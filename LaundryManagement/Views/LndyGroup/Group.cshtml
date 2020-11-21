@@ -1,10 +1,72 @@
 ﻿@model IEnumerable<LaundryApp.Models.LaundryGroup>
 
-@{
-    ViewBag.Title = "Group";
-}
+<script type="text/css" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</script>
+<script type="text/css" src="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
+</script>
+
+
 
 <h2>Group Master</h2>
+<div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="~/LndyGroup/Group" method="post">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="GroupName" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Code</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="Code" />
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:20px;">
+                            <div class="col-md-3">
+                                <label>Status</label>
+                            </div>
+                            <div class="col-md-3">
+
+                                @Html.DropDownList("IsActive", new List<SelectListItem>
+        {
+                new SelectListItem { Text = "Active",   Value = "true" },
+                new SelectListItem { Text = "InActive", Value = "false" }
+       }, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-3">
+                                <label>Color Code</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="ColorCode" />
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-success" value="Add" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
 <form action="~/LndyGroup/Group" method="post">
     <div class="row">
         <div class="col-md-3">
@@ -17,7 +79,7 @@
             <label>Code</label>
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="Code"/>
+            <input type="text" class="form-control" name="Code" />
         </div>
     </div>
     <div class="row" style="padding-top:20px;">
@@ -25,59 +87,83 @@
             <label>Status</label>
         </div>
         <div class="col-md-3">
-            <input type="text"  class="form-control" name="IsActive"/>
+
+            @Html.DropDownList("IsActive", new List<SelectListItem>
+        {
+                new SelectListItem { Text = "Active",   Value = "true" },
+                new SelectListItem { Text = "InActive", Value = "false" }
+       }, new { @class = "form-control" })
         </div>
         <div class="col-md-3">
             <label>Color Code</label>
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="ColorCode"/>
+            <input type="text" class="form-control" name="ColorCode" />
         </div>
     </div>
-    <input type="submit"  class="btn btn-success" value="Add" />
+    <input type="submit" class="btn btn-success" value="Add" />
 </form>
 <div style="padding-bottom:20px;">
 
 </div>
- 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.GroupName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ColorCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColorCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GroupId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GroupId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GroupId })
-        </td>
-    </tr>
-}
+<table class="table" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th colspan="2" align="center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ColorCode)
+                </td>
+                <td>
+                    @if (item.IsActive == true)
+                    {
+                        <span class="text-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">InActive</span>
+                    }
+                </td>
 
+                <td>
+                    @Html.ActionLink("Edit", "getGroupById", new { id = item.GroupId }, new { @class = "btn btn-info", data_toggle = "modal", data_target = "#myModal" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.GroupId }, new { @class = "btn btn-danger", data_toggle = "modal", data_target = "#myModal" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+    $.noConflict();
+    $(document).ready(function ($) {
+        $('#example').DataTable();
+    });
+</script>
