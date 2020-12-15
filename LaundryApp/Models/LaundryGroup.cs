@@ -11,9 +11,13 @@ namespace LaundryApp.Models
     {
         [Key]
         public int GroupId { get; set; }
+        [Required]
         public string GroupName { get; set; }
+        [Required]
         public string Code { get; set; }
+        [Required]
         public string ColorCode { get; set; }
+        [Required]
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public int UpdatedBy { get; set; }

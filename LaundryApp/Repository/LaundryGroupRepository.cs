@@ -39,5 +39,27 @@ namespace LaundryApp.Repository
             int i = db.SaveData("sp_InsertlndryGroup", dict);
             return i;
         }
+        public int UpdateGroupDet(LaundryGroup lgrp)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("@GroupId", lgrp.GroupId.ToString());
+            dict.Add("@GroupName", lgrp.GroupName);
+            dict.Add("@Code", lgrp.Code);
+            dict.Add("@ColorCode", lgrp.ColorCode);
+            dict.Add("@IsActive", lgrp.IsActive.ToString());
+            dict.Add("@CreatedBy", "1");
+            dict.Add("@UpdatedBy", "1");
+            int i = db.SaveData("sp_lndryUpdateGroupById", dict);
+            return i;
+        }
+        public int DeleteGroupDet(int ? id)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("@GroupId", id.ToString());
+            dict.Add("@CreatedBy", "1");
+            dict.Add("@UpdatedBy", "1");
+            int i = db.SaveData("sp_lndryDeleteGroupById", dict);
+            return i;
+        }
     }
 }

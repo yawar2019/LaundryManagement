@@ -7,6 +7,7 @@ using LaundryApp.BussinessLogic;
 using LaundryApp.Models;
 namespace LaundryManagement.Controllers
 {
+    [Authorize]
     public class LndyGroupController : Controller
     {
         // GET: Home
@@ -38,5 +39,35 @@ namespace LaundryManagement.Controllers
             ViewBag.group = db.getGroupById(id);
             return View("Group");
         }
+
+        [HttpPost]
+        public ActionResult UpdateGroup(LaundryGroup lgrp)
+        {
+            int i = db.UpdateGroup(lgrp);
+            if (i > 0)
+            {
+                return RedirectToAction("Group");
+            }
+            else
+            {
+                return View(lgrp);
+            }
+
+        }
+        [HttpPost]
+        public ActionResult DeleteGroup(int? deleteGroupId)
+        {
+            int i = db.DeleteGroup(deleteGroupId);
+            if (i > 0)
+            {
+                return RedirectToAction("Group");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+        
     }
 }

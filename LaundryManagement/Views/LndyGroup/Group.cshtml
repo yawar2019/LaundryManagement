@@ -1,113 +1,138 @@
 ﻿@model IEnumerable<LaundryApp.Models.LaundryGroup>
 
-<script type="text/css" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+@*<script type="text/css" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </script>
 <script type="text/css" src="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
-</script>
+</script>*@
 
-
+@{
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+}
 
 <h2>Group Master</h2>
 <div class="container">
-
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="editModal" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Edit Laundry</h4>
                 </div>
-                <div class="modal-body">
-                    <form action="~/LndyGroup/Group" method="post">
+                <form action="~/LndyGroup/UpdateGroup" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="GroupId" id="editGroupId" />
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 <label>Name</label>
                             </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="GroupName" />
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="editGroupName" name="GroupName" width="140" required />
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 <label>Code</label>
                             </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="Code" />
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="editCode" name="Code" required/>
                             </div>
                         </div>
                         <div class="row" style="padding-top:20px;">
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 <label>Status</label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
 
-                                @Html.DropDownList("IsActive", new List<SelectListItem>
-        {
-                new SelectListItem { Text = "Active",   Value = "true" },
-                new SelectListItem { Text = "InActive", Value = "false" }
-       }, new { @class = "form-control" })
+                                @Html.DropDownList("editIsActive", new List<SelectListItem>
+                   {
+                     new SelectListItem { Text = "Active",   Value = "true" },
+                     new SelectListItem { Text = "InActive", Value = "false" }
+                   }, new { @class = "form-control", @required= "required" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 <label>Color Code</label>
                             </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" name="ColorCode" />
+                            <div class="col-md-5">
+                                <input type="color" value='#ff0000' class="form-control" id="editColorCode" name="ColorCode" required />
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-success" value="Add" />
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" value="Update" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
 
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Laundry</h4>
+                </div>
+                <form action="~/LndyGroup/DeleteGroup" method="post">
+                    <div class="modal-body">
+                        <h4>Are you sure you want to delete the record?</h4>
+                        <input type="hidden" name="deleteGroupId" id="deleteGroupId" />
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
 
-</div>
-<form action="~/LndyGroup/Group" method="post">
-    <div class="row">
-        <div class="col-md-3">
-            <label>Name</label>
-        </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" name="GroupName" />
-        </div>
-        <div class="col-md-3">
-            <label>Code</label>
-        </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" name="Code" />
         </div>
     </div>
-    <div class="row" style="padding-top:20px;">
-        <div class="col-md-3">
-            <label>Status</label>
-        </div>
-        <div class="col-md-3">
+</div>
 
-            @Html.DropDownList("IsActive", new List<SelectListItem>
+<div style="padding-bottom:20px;padding-top:20px;">
+    <form action="~/LndyGroup/Group" method="post">
+        <div class="row">
+            <div class="col-md-2">
+                <label>Name</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control"  name="GroupName" placeholder="Enter Group Name" required />
+            </div>
+            <div class="col-md-2">
+                <label>Code</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="Code" placeholder="Enter Group Code" required />
+            </div>
+        </div>
+        <div class="row" style="padding-top:20px;">
+            <div class="col-md-2">
+                <label>Status</label>
+            </div>
+            <div class="col-md-4">
+
+          @Html.DropDownList("IsActive", new List<SelectListItem>
         {
                 new SelectListItem { Text = "Active",   Value = "true" },
                 new SelectListItem { Text = "InActive", Value = "false" }
-       }, new { @class = "form-control" })
+       }, new { @class = "form-control", @required= "required" })
+            </div>
+            <div class="col-md-2">
+                <label>Color Code</label>
+            </div>
+            <div class="col-md-4">
+                <input   class="form-control" name="ColorCode" required type="color" value='#ff0000' />
+            </div>
         </div>
-        <div class="col-md-3">
-            <label>Color Code</label>
+        <div style="text-align:center;padding-top:30px;">
+            <input type="submit" class="btn btn-success" value="Save Group" />
         </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" name="ColorCode" />
-        </div>
-    </div>
-    <input type="submit" class="btn btn-success" value="Add" />
-</form>
-<div style="padding-bottom:20px;">
-
+        <hr />
+    </form>
 </div>
 
-<table class="table" id="example">
+<table class="table table-condensed table-striped" id="table_id" style="width:100%">
     <thead>
         <tr>
             <th>
@@ -122,7 +147,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
-            <th colspan="2" align="center">Action</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -136,7 +161,7 @@
                     @Html.DisplayFor(modelItem => item.Code)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ColorCode)
+                   <div style="background-color:@item.ColorCode;height:10px;"></div>
                 </td>
                 <td>
                     @if (item.IsActive == true)
@@ -150,20 +175,29 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "getGroupById", new { id = item.GroupId }, new { @class = "btn btn-info", data_toggle = "modal", data_target = "#myModal" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.GroupId }, new { @class = "btn btn-danger", data_toggle = "modal", data_target = "#myModal" })
+                    <a href="#" data-toggle="modal" data-target="#editModal" class="btn btn-info" onclick="getEditGroupId(@serializer.Serialize(item))">Edit</a>
+                    <a href="#" data-toggle="modal" data-target="#deleteModal" class="btn btn-warning" onclick="getDeleteGroupId(@serializer.Serialize(item.GroupId))">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
-
 <script>
-    $.noConflict();
-    $(document).ready(function ($) {
-        $('#example').DataTable();
-    });
+
+    function getEditGroupId(obj)
+    {
+        document.getElementById('editGroupId').value = obj.GroupId;
+        document.getElementById('editGroupName').value =obj.GroupName;
+        document.getElementById('editCode').value =obj.Code;
+        document.getElementById('editColorCode').value = obj.ColorCode;
+        document.getElementById('editIsActive').value = obj.IsActive;
+    }
+    function getDeleteGroupId(id)
+    {
+        document.getElementById('deleteGroupId').value = id;
+    }
+    
 </script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">

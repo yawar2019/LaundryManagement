@@ -48,9 +48,21 @@ namespace LaundryApp.BussinessLogic
                 lg.IsActive = Convert.ToBoolean(dr["IsActive"]);
                 lg.Code = Convert.ToString(dr["Code"]);
                 lg.ColorCode = Convert.ToString(dr["ColorCode"]);
-               
+
             }
             return lg;
+        }
+
+        public int UpdateGroup(LaundryGroup lgrp)
+        {
+            int i = UpdateGroupDet(lgrp);
+            return i;
+        }
+
+        public int DeleteGroup(int? id)
+        {
+            int i = DeleteGroupDet(id);
+            return i;
         }
     }
 }
