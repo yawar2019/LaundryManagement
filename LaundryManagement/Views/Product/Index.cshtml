@@ -1,0 +1,84 @@
+﻿@model IEnumerable<LaundryApp.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Add Product to the List:</h2>
+
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        //alert("Hello value");
+        $("#tblProductList tr td [type='text']").keyup(function () {
+            //alert("Hello value 2");
+            var qty = $("#tblProductList tr td [type='text']").length;
+            var qty = $(this).closest("tr");
+            alert(qty[1].val());
+            alert('Product is = ' + qty.find("td:eq(0)").val());
+            alert('Text value is = ' + qty.find("td[type='text']").val());
+            //alert(qty.closest('tr'));
+            qty.each(function () {
+                alert($(this).val() + ' : ' + $(this).text());
+            })
+        })
+    })
+</script>
+
+
+<p>
+    <div>
+        @Html.ActionLink("| Shirt |", "AddProduct", new { id = 1 })
+        @Html.ActionLink(" Trouser |", "AddProduct", new { id = 2 })
+        @Html.ActionLink(" Saree |", "AddProduct", new { id = 3 })
+        @Html.ActionLink(" Skirt |", "AddProduct", new { id = 4 })
+        @Html.ActionLink(" Blazor |", "AddProduct", new { id = 5 })
+    </div>
+</p>
+<div>
+    <table class="table" id="tblProductList">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductAmount)
+            </th>
+            <th>
+                Action
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName, item.ProductName)
+                </td>
+                <td>
+
+                    @*<input type="text" name="txtQty" value="@item.ProductQty" onchange="location.href='@Url.Action("UpdateProductView", "Product", new { id = item.ProductId, qty = item.ProductQty})'" />*@
+
+                    <input type="text" name="txtQty" id="txtQty" value="@item.ProductQty" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductRate, item.ProductRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductAmount, item.ProductAmount)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteProductFromView", new { id = item.ProductId })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
