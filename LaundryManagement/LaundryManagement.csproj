@@ -122,6 +122,7 @@
     <Content Include="Content\Common.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Database\LdyScript_19Nov2020.sql" />
+    <Content Include="Database\lndryscript.sql" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />

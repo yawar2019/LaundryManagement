@@ -18,7 +18,7 @@ namespace DAL
                 SqlCommand cmd = new SqlCommand(spName, con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 foreach (var item in dict)
-                {
+                {  
                     cmd.Parameters.AddWithValue(item.Key, item.Value);
                 }
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

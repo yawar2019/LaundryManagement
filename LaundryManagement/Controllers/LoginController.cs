@@ -16,6 +16,7 @@ namespace LaundryManagement.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(Employee obj)
         {
